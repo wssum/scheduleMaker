@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+<body>
+    <%-include('partials/navbar')%>
+    <p> ERROR: Employee Not Found.</p>
+    <form action = "/findEmployee" method = "post">
+       <label for = "findWorker">Employees Log</label>
+       <input type = "text" id = "findWorker" name = "workerName" placeholder= "Employee Name">
+        <input type="submit" placeholder="submit">
+    </form>
+    
+</body>
+</html>

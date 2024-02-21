@@ -1,0 +1,208 @@
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+<body>
+    <p>Error: Failed to make account. Please try again</p>
+    <form action="/createAccount" method = "post">
+        New UserName-<input type = "text" name = "user">
+        New Password-<input type = "password" name = "pw">
+        Confirm Password-<input type = "password" name = "pw2">
+        <label for = "openMon"><h2 class="text-xl">
+            Monday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openMon" name = "monOpen" min = 7 max = 24>
+        
+        <label for = "closeMon"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeMon" name = "monClose" min = 7 max = 24>
+
+        <label for = "openersMon"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersMon" name = "monOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersMon"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersMon" name = "monClosersRequired" min = 1 max = 5>
+
+        <label for = "helperMon"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperMon" name = "monAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openTues"><h2 class="text-xl">
+            Tuesday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openTues" name = "tuesOpen" min = 7 max = 24>
+        
+        <label for = "closeTues"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeTues" name = "tuesClose" min = 7 max = 24>
+
+        <label for = "openersTues"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersTues" name = "tuesOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersTues"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersTues" name = "tuesClosersRequired" min = 1 max = 5>
+
+        <label for = "helperTues"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperTues" name = "tuesAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openWed"><h2 class="text-xl">
+            Wednesday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openWed" name = "wedOpen" min = 7 max = 24>
+        
+        <label for = "closeWed"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeWed" name = "wedClose" min = 7 max = 24>
+
+        <label for = "openersWed"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersWed" name = "wedOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersWed"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersWed" name = "wedClosersRequired" min = 1 max = 5>
+
+        <label for = "helperWed"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperWed" name = "wedAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openThurs"><h2 class="text-xl">
+            Thursday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openThurs" name = "thursOpen" min = 7 max = 24>
+        
+        <label for = "closeThurs"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeThurs" name = "thursClose" min = 7 max = 24>
+
+        <label for = "openersThurs"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersThurs" name = "thursOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersThurs"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersThurs" name = "thursClosersRequired" min = 1 max = 5>
+
+        <label for = "helperThurs"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperThurs" name = "thursAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openFri"><h2 class="text-xl">
+            Friday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openFri" name = "friOpen" min = 7 max = 24>
+        
+        <label for = "closeFri"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeFri" name = "friClose" min = 7 max = 24>
+
+        <label for = "openersFri"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersFri" name = "friOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersFri"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersFri" name = "friClosersRequired" min = 1 max = 5>
+
+        <label for = "helperFri"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperFri" name = "friAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openSat"><h2 class="text-xl">
+            Saturday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openSat" name = "satOpen" min = 7 max = 24>
+        
+        <label for = "closeSat"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeSat" name = "satClose" min = 7 max = 24>
+
+        <label for = "openersSat"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersSat" name = "satOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersSat"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersSat" name = "satClosersRequired" min = 1 max = 5>
+
+        <label for = "helperSat"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperWed" name = "satAllAroundsRequired" min = 1 max = 5>
+
+        <hr>
+
+        <label for = "openSun"><h2 class="text-xl">
+            Sunday
+            <span class="badge badge-lg">Open From</span>
+          </h2></label>
+        <input type="number" id="openSun" name = "sunOpen" min = 7 max = 13>
+        
+        <label for = "closeSun"><h2 class="text-xl">
+            <span class="badge badge-lg">Open To</span>
+          </h2></label>
+        <input type="number" id="closeSun" name = "sunClose" min = 16 max = 24>
+
+        <label for = "openersSun"><h2 class="text-xl">
+            <span class="badge badge-lg">Openers Required</span>
+          </h2></label>
+        <input type="number" id="openersSun" name = "sunOpenersRequired" min = 1 max = 5>
+
+        <label for = "closersSun"><h2 class="text-xl">
+            <span class="badge badge-lg">Closers Required</span>
+          </h2></label>
+        <input type="number" id="closersSun" name = "sunClosersRequired" min = 1 max = 5>
+
+        <label for = "helperSun"><h2 class="text-xl">
+            <span class="badge badge-lg">Helpers Required</span>
+          </h2></label>
+        <input type="number" id="helperSun" name = "sunAllAroundsRequired" min = 1 max = 5>
+
+        <input type="submit" placeholder="submit">
+    </form>
+</body>
+</html>

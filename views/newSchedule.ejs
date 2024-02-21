@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+<body>
+    <%-include('partials/navbar')%>
+    <ul>
+        <% data.forEach(function(workDay) { %>
+          
+            <li><%= workDay.day %>
+                <ul>
+                    <% workDay.opener.forEach(function(openerShift) { %>
+                        <% let openersBegShift = (workDay.open >= 12) ? ((workDay.open - 12) || 12) + 'PM' : workDay.open + 'AM'; %>
+                        <% let openersEndShift = ''; %>
+                        <% openerShift.daysAvailable.forEach(function(exactDay) { %>
+                            <% if(workDay.day === exactDay.name) { %>
+                                <% let mornTo = workDay.open + 6; %>
+                                <% if(mornTo >= 12) { %>
+                                    <% openersEndShift = ((mornTo - 12) || 12) + 'PM'; %>
+                                <% } else { %>
+                                    <% openersEndShift = mornTo + 'AM'; %>
+                                <% } %>
+                            <% } %>
+                        <% }); %>
+                        <% if(openersEndShift) { %>
+                            <li><%= openerShift.name %>: <%= openersBegShift %> - <%= openersEndShift %></li>
+                        <% } %>
+                    <% }); %>
+                </ul>
+                <ul>
+                    <% workDay.closer.forEach((closeShift) => { %>
+                        <% closeShift.daysAvailable.forEach((preciseDate) => { %>
+                          <% if (preciseDate.name === workDay.day) { %>
+                            <% let shiftLength = workDay.close - preciseDate.from ;%>
+                            <% let closersBegShift = ( shiftLength > 6) ? (workDay.close-18) + "PM" : shiftLength + "PM"; %>
+                            <% let closersEndShift = workDay.close - 12%>
+                            <li><%= closeShift.name %>: <%= closersBegShift %> - <%= closersEndShift %>PM</li>
+                          <% } %> 
+                        <% }); %>
+                      <% }); %>
+                      
+                </ul>
+                <ul>
+                 <%workDay.allAround.forEach((helpers)=>{%>
+                   <%helpers.daysAvailable.forEach((helpShift)=>{%>
+                   <%if(helpShift.name === workDay.day){%>
+                    <%let begShift = workDay.open + 4;%>
+                    <%let endShift = workDay.close - 4;%>
+                    <%let helpBegShift;%>
+                    <%if(begShift < 12){%>
+                    <%helpBegShift = begShift +"AM";%>    
+                    <%}else if(begShift == 12){%>
+                    <%helpBegShift = begShift +"PM";%>        
+                    <%}else{%>
+                    <%helpBegShift = (begShift - 12) +"PM";%>  
+                    <%}%>
+                    <%let helpEndShift = (endShift - 12)+ "PM";%>
+                    <li><%= helpers.name %>: <%= helpBegShift %> - <%= helpEndShift %></li>
+                    <%}%> 
+                   <%});%>
+                 <%});%> 
+                </ul>
+            </li>
+            <hr>
+        <% }); %>
+    </ul>
+</body>
+</html>
