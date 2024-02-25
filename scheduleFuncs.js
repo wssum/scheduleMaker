@@ -46,7 +46,6 @@ const Managers = db.model("Managers",managerSchema);
 
 let manager;
 
-
 function validateCredentials(credentials) {
   manager = credentials.user;
   return new Promise((resolve, reject) => {
@@ -167,10 +166,7 @@ function createUser(userInfo) {
     {
       reject(err);
     }
-    
   })
- 
-  
 }
 
 
@@ -213,10 +209,8 @@ function whichShift(worker, workDay) {
 function makeSchedule() {
   return Managers.findOne({ userName:  manager })
     .then(data => {
-      const schedule = data.schedule;
+      let schedule = data.schedule;
       const workers = data.employees;
-      console.log(schedule);
-      console.log(workers);
       schedule.forEach(date => {
         workers.forEach(worker => {
           const isAvailable = worker.daysAvailable.some(workerDay => workerDay.name.toLowerCase() === date.day.toLowerCase());
@@ -265,6 +259,7 @@ function makeSchedule() {
         }  
         });
       });
+ 
       return schedule;
     })
     .catch(error => {
@@ -354,10 +349,8 @@ async function scheduleReq(daysOfWork)
   }
   catch(err){
     console.log(err);
-  }
-         
+  }      
 }
-
 
  async function newWorker(employ) {
   try {
@@ -375,7 +368,6 @@ async function scheduleReq(daysOfWork)
       name: employ.empName,
       daysAvailable
     };
-
     const data = await Managers.updateOne({userName:  manager}, {$push: {employees: newEmployee}});
     console.log(data); 
   } catch (err) {
@@ -425,7 +417,6 @@ function availabilities(emp)
   })
   return totalAvailability;
 }
-
 
 function newSchedule() {
   Managers.find({userName:  manager},{ _id: 0,employees: 1 }).then((listOfWorkers) => {
@@ -501,7 +492,7 @@ async function editEmployee(empToEdit) {
   }else{
     try {
       await Managers.updateOne(
-        { userName: "Wilson Sum" },
+        { userName: manager },
         { $pull: { "employees": { "name": empToEdit.empName } } }      
       );
     } catch (err) {
