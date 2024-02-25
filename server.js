@@ -92,7 +92,8 @@ app.post("/newEmployee",(req,res)=>{
         })
      });
     app.get("/currentSchedule",(req,res)=>{
-        scheduleFuncs.makeSchedule().then((schedule)=>{
+        scheduleFuncs.currentSchedule().then((schedule)=>{
+            console.log("data has:"+schedule)
          res.render("finalSchedule",{data:schedule});
         })
      });

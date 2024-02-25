@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
-const db = mongoose.createConnection('mongodb+srv://wssum:7895123Zz@wssumcluster.mtthdw5.mongodb.net/managers')
+const db = mongoose.createConnection('mongodb+srv://wssum:7895123Zz@wssumcluster.mtthdw5.mongodb.net/managerAccounts')
 const managerSchema = new schema({
   userName: {
     unique:true,
@@ -14,6 +14,33 @@ const managerSchema = new schema({
     to: Number,
     _id: false}]}],
 schedule: [{
+    day: String,
+    _id: false,
+    opener: [{name: String,
+      _id: false,
+      daysAvailable:[{name: String,
+        _id: false, 
+        from: Number, 
+        to: Number}]}],
+    closer: [{name: String,
+      _id: false,
+      daysAvailable:[{name: String,
+        _id: false,
+        from: Number, 
+        to: Number}]}],
+    allAround: [{name: String,
+      _id: false,
+      daysAvailable:[{name: String, 
+        _id: false,
+        from: Number, 
+        to: Number}]}],
+    openersRequired: Number,
+    closersRequired: Number,
+    allAroundsRequired: Number,
+    open: Number,
+    close: Number
+  }],
+  currentSchedule:[{
     day: String,
     _id: false,
     opener: [{name: String,
@@ -151,7 +178,8 @@ function createUser(userInfo) {
           userName: userInfo.user,
           passWord:userInfo.pw,
           employees:[],
-          schedule: workDays
+          schedule: workDays,
+          currentSchedule:[]
         }).then(manager => {
           console.log('Manager created:', manager);
         }).catch(error => {
@@ -260,6 +288,9 @@ function makeSchedule() {
         });
       });
  
+      Managers.updateOne({userName: manager}, {$set:{currentSchedule:schedule}})
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
       return schedule;
     })
     .catch(error => {
@@ -502,6 +533,13 @@ async function editEmployee(empToEdit) {
 
 }
 
+async function currentSchedule() {
+  let scheduleData = await Managers.findOne({ userName: manager}, { currentSchedule: true});
+  const currentPlan = scheduleData.currentSchedule;
+  console.log(currentPlan);
+  return currentPlan;
+}
 
-module.exports ={ validateCredentials,createUser, manager,makeSchedule,whichShift,Managers,newWorker,scheduleReq,newSchedule,findEmployee,editEmployee};
+
+module.exports ={ validateCredentials,currentSchedule,createUser, manager,makeSchedule,whichShift,Managers,newWorker,scheduleReq,newSchedule,findEmployee,editEmployee};
 
