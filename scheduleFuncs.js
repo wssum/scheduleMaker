@@ -198,11 +198,16 @@ function createUser(userInfo) {
 }
 
 
-
+/*worker arg is for the worker in questions to see
+  if the worker is available. workDay is to see if 
+  that certain workDay is within the workers available
+  days.*/
 function whichShift(worker, workDay) {
   let shift = null;
   worker.daysAvailable.forEach((shiftDay) => {
       if (shiftDay.name.toLowerCase() === workDay.day.toLowerCase()) {
+        /*Checks to see if worker should be an opener, closer or an all around
+          which may also be used as a backup opener or closer. */
           if (shiftDay.from <= workDay.open && shiftDay.to < workDay.close) {
               if(workDay.opener.length < workDay.openersRequired)
               {
@@ -233,17 +238,24 @@ function whichShift(worker, workDay) {
   return shift;
 }
 
-
+/*Takes the employee data of a manager and the schedule
+  data of the manager and merges them together to make
+  a schedule. */
 function makeSchedule() {
   return Managers.findOne({ userName:  manager })
     .then(data => {
       let schedule = data.schedule;
       const workers = data.employees;
+      /*Outter forEach loop controls which day is operated on
+        and inner forEach loop goes over all the workers to
+        see if they are available.*/
       schedule.forEach(date => {
         workers.forEach(worker => {
           const isAvailable = worker.daysAvailable.some(workerDay => workerDay.name.toLowerCase() === date.day.toLowerCase());
-
+          
           if (isAvailable) {
+            /*Below checks to see if the current worker could be an opener, closer or allarounder
+              as well as checking to see if the worker has already been enlisted in the schedule yet.*/
             if ((whichShift(worker,date)== "A") && date.allAround.length < date.allAroundsRequired) {
                 if(!date.allAround.some(workMan=>workMan.name === worker.name)&&
                 !date.opener.some(workMan=>workMan.name === worker.name)&&
@@ -251,7 +263,8 @@ function makeSchedule() {
                 {
                     date.allAround.push(worker);
                 }
-            }if ((whichShift(worker,date)== "O") && (date.opener.length < date.openersRequired)) {
+            }
+            if ((whichShift(worker,date)== "O") && (date.opener.length < date.openersRequired)) {
               if(!date.allAround.some(workMan=>workMan.name === worker.name)&&
               !date.opener.some(workMan=>workMan.name === worker.name)&&
               !date.closer.some(workMan=>workMan.name === worker.name))
@@ -440,6 +453,9 @@ function findEmployee(empName) {
   });
 }
 
+/*Takes an employee object and adds up all
+  the differences of their availability 
+  together. */
 function availabilities(emp)
 {
   let totalAvailability = 0;
@@ -449,15 +465,18 @@ function availabilities(emp)
   return totalAvailability;
 }
 
+
+/*This function is used to randomize the list of employees so
+  that when make a new schedule it'll be a different order in 
+  which who gets assigned to each shift next.*/
 function newSchedule() {
   Managers.find({userName:  manager},{ _id: 0,employees: 1 }).then((listOfWorkers) => {
     if (listOfWorkers.length > 0 && listOfWorkers[0].employees) {
       let employees = listOfWorkers[0].employees; 
-      for (let i = employees.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [employees[i], employees[j]] = [employees[j], employees[i]];
-      }
       
+      /*Organizes in asscending order so that those with
+        a more scaled down availability will get first
+        choices since they can only work on certain days.*/
       for (let i = 0; i < employees.length; i++) {
         for (let a = 0; a < employees.length; a++) {
           if (availabilities(employees[i]) < availabilities(employees[a])) {
@@ -467,16 +486,18 @@ function newSchedule() {
           }
         }
       }
-  
+      /*Randomizes the order of the first half of the array of
+        employees so those with lower availabilites will be assigned
+        more randomly to the schedule.*/
       for (let i = Math.floor(employees.length / 2); i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [employees[i], employees[j]] = [employees[j], employees[i]];
       }
 
-
+/*Using the midpoint those with the most availability
+  will also get shuffled so that their assignment of 
+  shifts will be more random. */
 let midPoint = Math.floor(employees.length / 2);
-
-
 for (let i = employees.length - 1; i > midPoint; i--) {
   let j = Math.floor(Math.random() * (i - midPoint + 1)) + midPoint;
   [employees[i], employees[j]] = [employees[j], employees[i]];
